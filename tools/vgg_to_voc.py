@@ -32,22 +32,22 @@ def vgg_dict_to_voc_dict(obj,size):
     ymin = bbox["y"]
     xmax = xmin + bbox["width"]
     ymax = ymin + bbox["height"]
-    if xmin < 0:
-        xmin = 0
-    if xmax >= size[0]:
-        xmax = size[0]-1
-    if ymin < 0:
-        ymin = 0
-    if ymax >= size[1]:
-        ymax = size[1]-1
+    if xmin <= 0:
+        xmin = 1
+    if xmax >= size["width"]:
+        xmax = size["width"]-1
+    if ymin <= 0:
+        ymin = 1
+    if ymax >= size["height"]:
+        ymax = size["height"]-1
     bndbox = {
     "xmin" : xmin,
     "ymin" : ymin,
     "xmax" : xmax,
     "ymax" : ymax
     }
-    if xmin >= size[0] or ymin >= size[1]: 
-        # print("{}\n{}\n{}\n\n".format(size,bbox,bndbox))
+    if xmin >= size["width"] or ymin >= size["height"]: 
+        #print("{}\n{}\n{}\n\n".format(size,bbox,bndbox))
         return False
 
     name = json.loads(obj["region_attributes"])["class"]
@@ -85,7 +85,7 @@ def write_image_sets(dir_path, image_sets):
             with open(filename,"w+") as f:
                 for img in split_data[class_name]:
                     f.write("{} {}\n".format(img, split_data[class_name][img]))
-            print(filename)
+            #print(filename)
 
 def annotation_to_xml(annotation,dir_path):
     filepath = dir_path + annotation["filename"][:-4] + ".xml"
@@ -93,7 +93,7 @@ def annotation_to_xml(annotation,dir_path):
     data = {"annotation":annotation}
     with open(filepath, "w+") as f:
         f.write(xmltodict.unparse(data, full_document=False, pretty=True))
-    print(filepath)
+    #print(filepath)
 
 def sample_without_replace(data, keys):
     sample = {}
@@ -167,7 +167,7 @@ def vgg_to_voc(csv_df, dir_path, classes):
             "object" : []}
         # Parse object attributes
         if obj["region_count"] > 0:
-            obj_attr = vgg_dict_to_voc_dict(obj,size)
+            obj_attr = vgg_dict_to_voc_dict(obj,annotations[img_file]["size"])
             if obj_attr == False:
                 continue
             annotations[img_file]["object"].append(obj_attr)
