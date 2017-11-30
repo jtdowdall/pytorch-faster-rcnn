@@ -288,4 +288,12 @@ class resnetv1(Network):
       self.resnet.apply(set_bn_eval)
 
   def load_pretrained_cnn(self, state_dict):
-    self.resnet.load_state_dict({k: state_dict[k] for k in list(self.resnet.state_dict())})
+    	state_dict_temp = {}
+	print('Loading pretained cnn.....');
+	print(type(state_dict));
+	print(state_dict.keys());
+	for k in list(self.resnet.state_dict()):
+		print(k);
+		state_dict_temp[ k] = state_dict['resnet.' + k];
+	self.resnet.load_state_dict(state_dict_temp);
+    #self.resnet.load_state_dict({k: state_dict[k] for k in list(self.resnet.state_dict())})

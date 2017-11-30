@@ -494,5 +494,14 @@ class Network(nn.Module):
     the model trained before.
     To provide back compatibility, we overwrite the load_state_dict
     """
+    #state_dict_temp = {}
+    #print('Loading dis shit')
+    #print(type(state_dict));
+    #print(state_dict.keys());
+    #for k in list(self.state_dict()):
+    #    print(k);
+    #    state_dict_temp[k] = state_dict[k]
+    #print(state_dict['cls_score_net.bias'])
+    #nn.Module.load_state_dict(self, state_dict_temp);	
     nn.Module.load_state_dict(self, {k: state_dict[k] for k in list(self.state_dict())})
 
