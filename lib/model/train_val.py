@@ -249,7 +249,6 @@ class SolverWrapper(object):
       utils.timer.timer.tic()
       # Get training data, one batch at a time
       blobs = self.data_layer.forward()
-
       now = time.time()
       if iter == 1 or now - last_summary_time > cfg.TRAIN.SUMMARY_INTERVAL:
         # Compute the graph with summary
