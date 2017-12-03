@@ -63,7 +63,7 @@ def vgg_dict_to_voc_dict(obj,size):
 def determine_image_set(images, class_name):
     image_set = {}
     for i in images:
-        img = i[:-4]
+        img = i.split('.')[0]
         objects = [obj["name"] for obj in images[i]["object"]]
         if class_name in objects:
             image_set[img] = 1
@@ -88,7 +88,7 @@ def write_image_sets(dir_path, image_sets):
             #print(filename)
 
 def annotation_to_xml(annotation,dir_path):
-    filepath = dir_path + annotation["filename"][:-4] + ".xml"
+    filepath = dir_path + annotation["filename"].split('.')[0] + ".xml"
     # Nest dictionary for proper xml output
     data = {"annotation":annotation}
     with open(filepath, "w+") as f:
