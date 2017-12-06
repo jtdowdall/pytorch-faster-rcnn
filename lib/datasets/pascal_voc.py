@@ -33,20 +33,20 @@ class pascal_voc(imdb):
     self._devkit_path = self._get_default_path()
     self._data_path = os.path.join(self._devkit_path, 'VOC' + self._year)
     self._classes = ('__background__',  # always index 0
-		     'salad', 
-		'hamburger', 
-		'french_fries',
-		'egg_scrambled',
-		'hotdog', 
-		'rice', 
-		'egg_sunny_side_up',
-		'pizza',
-		'egg_hardboiled',
 		'apple',
 		'broccoli',
-		'cookie',
 		'banana',
+		'cookie',
+		'egg_hardboiled',
+		'egg_scrambled',
+		'egg_sunny_side_up',
+		'french_fries',
+		'hamburger',
+		'hotdog',
 		'pasta',
+		'pizza',
+		'rice',
+		'salad',
 		'strawberry',
 		'tomato')
     self._class_to_ind = dict(list(zip(self.classes, list(range(self.num_classes)))))
